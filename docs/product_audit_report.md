@@ -1,7 +1,7 @@
-# 📊 Продуктовый отчет (Product Audit Report) — DocGen PRO MVP
+# 📊 Продуктовый отчет (Product Audit Report) — ContractHub MVP
 
 **Автор:** Lead Product Manager  
-**Продукт:** DocGen PRO (Standalone Offline Document Generator)  
+**Продукт:** ContractHub (Standalone Offline Document Generator)  
 **Статус MVP:** Собрана функциональная веха-версия (v0.1.0-alpha)  
 **Дата аудита:** 31 июля 2026 г.
 

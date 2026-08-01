@@ -1,11 +1,11 @@
-# DocGen PRO (ContractHub)
+# ContractHub
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![React](https://img.shields.io/badge/React-19-blue?logo=react)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-6.0-blue?logo=typescript)](https://www.typescriptlang.org/)
 [![Vite](https://img.shields.io/badge/Vite-8.2-purple?logo=vite)](https://vitejs.dev/)
 
-**DocGen PRO** — современная и безопасная веб-система для автоматизации генерации первичных документов (договоров, счетов на оплату, актов выполненных работ) в форматах **DOCX** и **PDF** на основе настраиваемых шаблонов MS Word.
+**ContractHub** — современная и безопасная веб-система для автоматизации генерации первичных документов (договоров, счетов на оплату, актов выполненных работ) в форматах **DOCX** и **PDF** на основе настраиваемых шаблонов MS Word.
 
 Приложение полностью работает на стороне клиента (Client-Side / Offline-First). Все данные хранятся исключительно в локальном хранилище браузера (IndexedDB), обеспечивая полную конфиденциальность коммерческой информации.
 
