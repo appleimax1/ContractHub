@@ -1,0 +1,268 @@
+{
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "add": "Add",
+    "search": "Search...",
+    "no_data": "No data",
+    "actions": "Actions",
+    "confirm_delete": "Delete?",
+    "error": "Error",
+    "success": "Success",
+    "close": "Close",
+    "unknown": "Unknown"
+  },
+  "sidebar": {
+    "generator": "Generator",
+    "companies": "My Companies",
+    "clients": "Clients",
+    "templates": "Templates",
+    "numerators": "Numerators",
+    "catalog": "Product Catalog",
+    "builder": "Field Builder",
+    "history": "Document History",
+    "knowledge": "Knowledge Base",
+    "settings": "Settings",
+    "taxes": "Taxes"
+  },
+  "history": {
+    "title": "Document History",
+    "loading": "Loading...",
+    "filters": {
+      "company": "Company",
+      "all_companies": "All Companies",
+      "client": "Client",
+      "all_clients": "All Clients",
+      "status": "Status",
+      "all_statuses": "All Statuses",
+      "date": "Creation Date"
+    },
+    "statuses": {
+      "согласование": "Under Review",
+      "доработка": "Needs Revision",
+      "заключен": "Contract Signed",
+      "отказ": "Rejected"
+    },
+    "table": {
+      "date": "Date",
+      "template": "Template",
+      "company": "Company",
+      "client": "Client",
+      "status": "Status",
+      "actions": "Actions",
+      "unknown": "Unknown",
+      "no_records": "No records found."
+    },
+    "actions": {
+      "download": "Download Document",
+      "delete": "Delete",
+      "delete_confirm": "Are you sure you want to delete this record from history?",
+      "no_file": "Document file was not saved in this record."
+    }
+  },
+  "generator": {
+    "title": "Workspace",
+    "folder_select": "Select \"Documents\" folder",
+    "step1": "1. Template and Parties",
+    "step2": "2. Products, Services and Specs",
+    "step3": "3. Details and Generation",
+    "template": "Document Template",
+    "upload_template": "Upload .docx",
+    "my_company": "My Company",
+    "client": "Client",
+    "select_template": "Select Template",
+    "select_company": "Select Company",
+    "select_client": "Select Client",
+    "add_product": "Add Item",
+    "products_empty": "Add products or services to calculate total",
+    "product_name": "Name",
+    "quantity": "Qty",
+    "price": "Price",
+    "total": "Total",
+    "deal_currency": "Deal Currency",
+    "tax_rate": "Tax Rate",
+    "tax_included": "Tax included in total",
+    "tax_not_included": "Tax added to total",
+    "discount": "Discount",
+    "discount_type_none": "No discount",
+    "discount_type_percent": "Percent (%)",
+    "discount_type_amount": "Amount",
+    "totals": {
+      "sum": "Subtotal:",
+      "discount": "Discount:",
+      "total_discounted": "Total after discount:",
+      "tax": "Tax Amount:",
+      "total_to_pay": "Total to pay:"
+    },
+    "ready_to_generate": "Ready! Generate Document:",
+    "preview": "Preview",
+    "download_docx": "Download .docx",
+    "download_pdf": "Download .pdf",
+    "generating_pdf": "Generating PDF...",
+    "preview_title": "Document Preview",
+    "custom_fields": "Custom Template Fields"
+  },
+  "companies": {
+    "title": "My Companies",
+    "add_new": "Add Company",
+    "edit": "Edit Company",
+    "search": "Search by name or ID...",
+    "table": {
+      "name": "Name / ID",
+      "address": "Address",
+      "contacts": "Contacts",
+      "ceo": "CEO"
+    },
+    "form": {
+      "name": "Company Name",
+      "bin": "Business ID",
+      "legal_address": "Legal Address",
+      "actual_address": "Actual Address",
+      "phone": "Phone",
+      "email": "Email",
+      "ceo_name": "CEO Name",
+      "ceo_title": "CEO Title",
+      "ceo_base": "Acts on the basis of",
+      "bank_accounts": "Bank Accounts",
+      "add_bank": "Add Account",
+      "bank_alias": "Account Alias",
+      "bank_name": "Bank Name",
+      "bik": "BIC",
+      "iik": "IBAN",
+      "stamps": "Stamp and Signature (for PDF)",
+      "stamp": "Stamp (PNG with transparent bg)",
+      "signature": "CEO Signature",
+      "upload": "Upload",
+      "clear": "Clear"
+    }
+  },
+  "clients": {
+    "title": "Clients",
+    "add_new": "Add Client",
+    "edit": "Edit Client",
+    "search": "Search by name or ID...",
+    "empty": "You don't have any clients yet. Add the first one!"
+  },
+  "catalog": {
+    "title": "Products and Services Catalog",
+    "add_new": "Add Item",
+    "edit": "Edit Item",
+    "search": "Search by name...",
+    "filter_all": "All",
+    "filter_products": "Products",
+    "filter_services": "Services",
+    "table": {
+      "type": "Type",
+      "name": "Name",
+      "price": "Price",
+      "stock": "Stock"
+    },
+    "form": {
+      "type": "Item Type",
+      "type_product": "Product",
+      "type_service": "Service",
+      "name": "Name",
+      "unit": "Unit",
+      "price": "Unit Price",
+      "track_stock": "Track Stock",
+      "stock_qty": "Stock Quantity"
+    }
+  },
+  "builder": {
+    "title": "Field Builder",
+    "add_new": "Create New Field",
+    "edit": "Edit Field",
+    "form": {
+      "name": "Name (for form)",
+      "key": "Tag Key",
+      "type": "Field Type",
+      "options": "Options for dropdown (comma separated)",
+      "multiple": "Allow multiple selection",
+      "type_string": "String (Text)",
+      "type_date": "Date",
+      "type_time": "Time",
+      "type_money": "Money",
+      "type_numerator": "Numerator",
+      "type_list": "List"
+    },
+    "table": {
+      "name": "Name",
+      "type": "Type",
+      "tag": "Ready Tag",
+      "system_fields": "System Fields"
+    },
+    "empty": "No custom fields. Create the first one above."
+  },
+  "numerators": {
+    "title": "Document Numerators",
+    "add_new": "Add Numerator",
+    "edit": "Edit Numerator",
+    "form": {
+      "name": "Name",
+      "prefix": "Prefix",
+      "suffix": "Suffix",
+      "counter": "Start Number",
+      "preview": "First Number Preview:"
+    },
+    "table": {
+      "name": "Name",
+      "format": "Format (Preview)",
+      "next": "Next Number"
+    },
+    "empty": "You don't have any numerators yet. Add the first one!"
+  },
+  "taxes": {
+    "title": "Tax Rates",
+    "add_new": "Add New Tax",
+    "edit": "Edit Tax",
+    "form": {
+      "name": "Name (e.g. VAT 12%)",
+      "rate": "Tax Rate (%)"
+    },
+    "table": {
+      "name": "Name",
+      "rate": "Rate (%)"
+    },
+    "empty": "No tax rates added yet"
+  },
+  "settings": {
+    "title": "Settings",
+    "export_import": {
+      "title": "Backup & Restore",
+      "export_btn": "Export Database",
+      "export_desc": "Download all data in JSON format",
+      "import_btn": "Import Database",
+      "import_desc": "Restore data from JSON file",
+      "import_warning": "Warning: Import will overwrite the current database!"
+    },
+    "demo": {
+      "title": "Demo Data",
+      "load_btn": "Load Demo Data",
+      "load_desc": "Load test company, clients, and templates",
+      "load_warning": "Warning: This will delete your current data and load the demo set."
+    },
+    "danger": {
+      "title": "Danger Zone",
+      "clear_btn": "Clear All Data",
+      "clear_desc": "Complete deletion of all companies, clients, templates, and history",
+      "prompt_msg": "Type DELETE to confirm",
+      "invalid_word": "Invalid confirmation word"
+    }
+  },
+  "knowledge": {
+    "title": "Knowledge Base and Tags",
+    "intro": "This section describes all available template tags and rules for using them.",
+    "sec1_title": "1. Basic Tags",
+    "sec1_desc": "Use double curly braces to insert simple values. For example:",
+    "sec2_title": "2. Date and Number Formatting",
+    "sec2_desc": "You can use filters for formatting. Add a filter using the | symbol",
+    "sec3_title": "3. Loops (Product Tables)",
+    "sec3_desc": "To output a list of products, use the opening tag {{#products}} and closing {{/products}}.",
+    "sec4_title": "4. Images (Stamp and Signature)",
+    "sec4_desc": "To insert images, use the % prefix inside the tags:",
+    "sec5_title": "5. Conditions",
+    "sec5_desc": "You can hide or show text blocks conditionally. If the value is empty or false, the block will not be output."
+  }
+}
