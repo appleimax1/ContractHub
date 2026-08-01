@@ -409,6 +409,7 @@ export function useDocumentGenerator() {
     if (!templateBuffer || !validateBeforeGeneration()) return;
     setIsGenerating(true);
     const toastId = toast.loading('Генерация PDF...');
+
     try {
       const engine = new TemplateEngine(templateBuffer);
       const { payload, usedNumerators } = await preparePayload();
@@ -434,31 +435,63 @@ export function useDocumentGenerator() {
       const result = await mammoth.convertToHtml({ arrayBuffer }, options);
       const html = result.value;
 
-      const iframe = document.createElement('iframe');
-      iframe.style.display = 'none';
-      document.body.appendChild(iframe);
-      const iframeDoc = iframe.contentWindow!.document;
-      iframeDoc.open();
-      iframeDoc.write(`
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <style>
-            table { width: 100%; border-collapse: collapse; margin: 15px 0; }
-            th, td { border: 1px solid #000; padding: 5px 8px; text-align: left; }
-            p.center { text-align: center !important; }
-            p.right { text-align: right !important; }
-            p.justify { text-align: justify !important; }
-          </style>
-        </head>
-        <body style="padding: 20px; font-family: 'Times New Roman', serif; font-size: 12pt; color: #000; background: #fff; white-space: pre-wrap;">
-          ${html}
-        </body>
-        </html>
-      `);
-      iframeDoc.close();
+      const container = document.createElement('div');
+      container.style.padding = "20px";
+      container.style.fontFamily = "'Times New Roman', serif";
+      container.style.fontSize = "12pt";
+      container.style.color = "#000";
+      container.style.background = "#fff";
+      container.style.whiteSpace = "pre-wrap";
+      container.style.lineHeight = "1.5";
+      container.innerHTML = html;
 
-      const container = iframeDoc.body;
+      // Apply all formatting as inline styles to guarantee html2canvas picks them up
+      container.querySelectorAll('*').forEach(el => {
+        (el as HTMLElement).style.boxSizing = 'border-box';
+      });
+      container.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(el => {
+        (el as HTMLElement).style.fontSize = 'inherit';
+        (el as HTMLElement).style.fontWeight = 'bold';
+        (el as HTMLElement).style.marginTop = '16px';
+        (el as HTMLElement).style.marginBottom = '8px';
+      });
+      container.querySelectorAll('p').forEach(el => {
+        (el as HTMLElement).style.marginTop = '0';
+        (el as HTMLElement).style.marginBottom = '8px';
+        (el as HTMLElement).style.minHeight = '1em';
+      });
+      container.querySelectorAll('table').forEach(el => {
+        (el as HTMLElement).style.width = '100%';
+        (el as HTMLElement).style.borderCollapse = 'collapse';
+        (el as HTMLElement).style.margin = '15px 0';
+      });
+      container.querySelectorAll('th, td').forEach(el => {
+        (el as HTMLElement).style.border = '1px solid #000';
+        (el as HTMLElement).style.padding = '8px';
+        (el as HTMLElement).style.textAlign = 'left';
+        (el as HTMLElement).style.verticalAlign = 'top';
+      });
+      container.querySelectorAll('p.center, .center').forEach(el => {
+        (el as HTMLElement).style.setProperty('text-align', 'center', 'important');
+      });
+      container.querySelectorAll('p.right, .right').forEach(el => {
+        (el as HTMLElement).style.setProperty('text-align', 'right', 'important');
+      });
+      container.querySelectorAll('p.justify, .justify').forEach(el => {
+        (el as HTMLElement).style.setProperty('text-align', 'justify', 'important');
+      });
+      container.querySelectorAll('img').forEach(el => {
+        (el as HTMLElement).style.maxWidth = '100%';
+        (el as HTMLElement).style.height = 'auto';
+      });
+      container.querySelectorAll('strong, b').forEach(el => {
+        (el as HTMLElement).style.fontWeight = 'bold';
+      });
+      container.querySelectorAll('em, i').forEach(el => {
+        (el as HTMLElement).style.fontStyle = 'italic';
+      });
+
+      const pdfContentHtml = container.outerHTML;
 
       const templateName = templates?.find(t => t.id === selectedTemplateId)?.name.replace(/\.docx$/i, '') || 'Документ';
       const docNumber = payload.doc_number ? ` №${payload.doc_number}` : '';
@@ -468,42 +501,44 @@ export function useDocumentGenerator() {
         margin:       10,
         filename:     fileName,
         image:        { type: 'jpeg' as const, quality: 0.98 },
-        html2canvas:  { scale: 2 },
+        html2canvas:  {
+          scale: 2,
+          useCORS: true,
+          onclone: (clonedDoc: Document) => {
+            clonedDoc.querySelectorAll('style, link[rel="stylesheet"]').forEach(el => el.remove());
+          }
+        },
         jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' as 'portrait' | 'landscape' }
       };
 
-      try {
-        const pdfBlob = await html2pdf().set(opt).from(container).output('blob');
-        
-        const clientName = clients?.find(c => c.id === Number(selectedClientId))?.name || 'Неизвестный клиент';
-        const numId = Number(docData['doc_number']);
-        const docTypeName = numId ? (numeratorsList?.find(n => n.id === numId)?.name || 'Документ') : 'Без типа';
+      const pdfBlob = await html2pdf().set(opt).from(pdfContentHtml).output('blob');
+      
+      const clientName = clients?.find(c => c.id === Number(selectedClientId))?.name || 'Неизвестный клиент';
+      const numId = Number(docData['doc_number']);
+      const docTypeName = numId ? (numeratorsList?.find(n => n.id === numId)?.name || 'Документ') : 'Без типа';
 
-        let savedLocally = false;
-        if (baseDirectoryHandle) {
-          savedLocally = await saveToLocalDirectory(baseDirectoryHandle, [clientName, docTypeName], fileName, pdfBlob);
-        }
-
-        if (!savedLocally) {
-          const url = URL.createObjectURL(pdfBlob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = fileName;
-          a.click();
-          URL.revokeObjectURL(url);
-        }
-
-        await commitNumerators(usedNumerators);
-        await handleStockDeduction();
-        await updateTemplateLastUsed();
-        
-        const fileBuffer = await pdfBlob.arrayBuffer();
-        await saveHistoryRecord(payload, fileBuffer, 'pdf');
-
-        toast.success('PDF успешно сгенерирован', { id: toastId });
-      } finally {
-        if (iframe.parentNode) iframe.parentNode.removeChild(iframe);
+      let savedLocally = false;
+      if (baseDirectoryHandle) {
+        savedLocally = await saveToLocalDirectory(baseDirectoryHandle, [clientName, docTypeName], fileName, pdfBlob);
       }
+
+      if (!savedLocally) {
+        const url = URL.createObjectURL(pdfBlob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = fileName;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+
+      await commitNumerators(usedNumerators);
+      await handleStockDeduction();
+      await updateTemplateLastUsed();
+      
+      const fileBuffer = await pdfBlob.arrayBuffer();
+      await saveHistoryRecord(payload, fileBuffer, 'pdf');
+
+      toast.success('PDF успешно сгенерирован', { id: toastId });
     } catch (error: any) {
       console.error('PDF generation failed:', error);
       toast.error(`Ошибка генерации PDF: ${error?.message || error}`, { id: toastId });
