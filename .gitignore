@@ -29,6 +29,7 @@ Thumbs.db
 !.vscode/extensions.json
 .idea/
 docs/
+.agents/
 *.suo
 *.ntvs*
 *.njsproj
